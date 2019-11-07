@@ -65,7 +65,7 @@ go_image(
 container_bundle(
     name = "container-bundle",
     images = {
-        "index.docker.io/kubevirtci/gocli:latest": "//:gocli",
+        "index.docker.io/dhiller/gocli:latest": "//:gocli",
     },
 )
 

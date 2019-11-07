@@ -42,6 +42,7 @@ func NewProvisionCommand() *cobra.Command {
 	provision.Flags().String("installer-pull-token-file", "", "path to the file that contains installer pull token")
 	provision.Flags().String("installer-repo-tag", "", "installer repository tag that you want to compile from")
 	provision.Flags().String("installer-release-image", "", "the OKD release image that you want to use")
+	provision.Flags().String("installer-os-image", "", "the OS image that you want to use")
 
 	return provision
 }
@@ -122,6 +123,15 @@ func provision(cmd *cobra.Command, args []string) error {
 
 	if installerReleaseImage != "" {
 		envs = append(envs, fmt.Sprintf("INSTALLER_RELEASE_IMAGE=%s", installerReleaseImage))
+	}
+
+	installerOSImage, err := cmd.Flags().GetString("installer-os-image")
+	if err != nil {
+		return err
+	}
+
+	if installerOSImage != "" {
+		envs = append(envs, fmt.Sprintf("INSTALLER_OS_IMAGE=%s", installerOSImage))
 	}
 
 	base := args[0]

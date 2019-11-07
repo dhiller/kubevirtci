@@ -13,6 +13,7 @@ gocli="docker run \
 --rm -t \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v ${PARENT_DIR}:${PARENT_DIR} \
+-v "$HOME/images:$HOME/images" \
 docker.io/kubevirtci/gocli@${gocli_image_hash}"
 
 ${gocli} provision okd \
@@ -26,4 +27,5 @@ ${gocli} provision okd \
 --installer-pull-token-file ${INSTALLER_PULL_SECRET} \
 --installer-repo-tag release-4.2 \
 --installer-release-image docker.io/kubevirtci/ocp-release@sha256:79347c0c3412f0bcc99af573d15ed60ed670ec6c287f98267c3e22ffcf577370 \
+--installer-os-image "$OPENSHIFT_INSTALL_OS_IMAGE_OVERRIDE" \
 "kubevirtci/okd-base@${okd_base_hash}"

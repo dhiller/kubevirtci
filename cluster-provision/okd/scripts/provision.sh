@@ -8,6 +8,10 @@ if [ ! -z $INSTALLER_RELEASE_IMAGE ]; then
     done
 fi
 
+if [ ! -z $INSTALLER_OS_IMAGE ]; then
+    export OPENSHIFT_INSTALL_OS_IMAGE_OVERRIDE=$INSTALLER_OS_IMAGE
+fi
+
 compile_installer () {
     # install build dependencies
     local build_pkgs="git gcc-c++"
