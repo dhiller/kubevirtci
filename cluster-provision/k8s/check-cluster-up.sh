@@ -32,6 +32,7 @@ function cleanup {
   if [ -f "${pre_pull_image_file}" ]; then
     bash -x "$DIR/deploy-manifests.sh" "${provision_dir}"
     bash -x "$DIR/check-pod-images.sh" "${provision_dir}"
+    bash -x "$DIR/validate-pod-pull-policies.sh"
   fi
 
   # Run conformance test only at CI and if the provider has them activated
