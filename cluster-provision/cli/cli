@@ -182,7 +182,8 @@ if [ "$COMMAND" == "provision" ] ; then
   docker cp ${SCRIPTS}/. ${VM_CID}:/scripts/
   docker exec ${VM_CID} /bin/bash -c "while [ ! -f /ssh_ready ] ; do sleep 1; done"
   docker exec ${VM_CID} /bin/bash -c "ssh.sh echo VM is up"
-  docker exec ${VM_CID} /bin/bash -c "[ -f /scripts/pre-pull-images ] && scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vagrant.key -P 22 /scripts/pre-pull-images vagrant@192.168.66.101:/tmp/pre-pull-images"
+  docker exec ${VM_CID} /bin/bash -c "if [ -f /scripts/extra-pre-pull-images ]; then scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vagrant.key -P 22 /scripts/extra-pre-pull-images vagrant@192.168.66.101:/tmp/extra-pre-pull-images; fi"
+  docker exec ${VM_CID} /bin/bash -c "if [ -f /scripts/fetch-images.sh ]; then scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vagrant.key -P 22 /scripts/fetch-images.sh vagrant@192.168.66.101:/tmp/fetch-images.sh; fi"
   if [ "${SIMPLE_PROVISION}" == "true" ]; then
     docker exec ${VM_CID} /bin/bash -c "scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vagrant.key -P 22 /scripts/manifests/* vagrant@192.168.66.101:/tmp"
   else

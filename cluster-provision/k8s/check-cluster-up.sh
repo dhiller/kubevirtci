@@ -28,7 +28,7 @@ function cleanup {
   ${ksh} get nodes
   ${ksh} get pods -A
 
-  pre_pull_image_file="$DIR/${provision_dir}/pre-pull-images"
+  pre_pull_image_file="$DIR/${provision_dir}/extra-pre-pull-images"
   if [ -f "${pre_pull_image_file}" ]; then
     bash -x "$DIR/deploy-manifests.sh" "${provision_dir}"
     bash -x "$DIR/check-pod-images.sh" "${provision_dir}"
