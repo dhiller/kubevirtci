@@ -20,7 +20,9 @@ function cleanup {
   export KUBEVIRT_PROVIDER="k8s-${provision_dir}"
   export KUBEVIRT_NUM_NODES=2
   export KUBEVIRT_NUM_SECONDARY_NICS=2
-  export KUBEVIRT_WITH_CNAO=true
+  if [[ ! "${provision_dir}" =~ ^1\.1[456]$ ]]; then
+    export KUBEVIRT_WITH_CNAO=true
+  fi
   trap cleanup EXIT ERR SIGINT SIGTERM SIGQUIT
   bash -x ./cluster-up/up.sh
   ${ksh} wait --for=condition=Ready pod --timeout=200s --all
