@@ -98,6 +98,8 @@ gpgcheck=0
 enabled=1
 EOF
 dnf install -y cri-o
+systemctl daemon-reload
+systemctl enable crio && systemctl start crio
 
 # install podman for functionality missing in crictl (tag, etc)
 dnf install -y podman

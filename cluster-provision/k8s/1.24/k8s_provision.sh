@@ -39,7 +39,6 @@ echo overlay >> /etc/modules-load.d/k8s.conf
 rm -f /etc/cni/net.d/*
 
 systemctl daemon-reload
-systemctl enable crio && systemctl start crio
 systemctl enable kubelet && systemctl start kubelet
 
 dnf install -y NetworkManager NetworkManager-ovs
